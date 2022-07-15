@@ -15,9 +15,9 @@
   * [💿 CROSS JOIN (카티전 프로덕트)](#---cross-join-----------)
   * [💿 SELF JOIN](#---self-join)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
-
+---
+<br/>
 
 # 1. JOIN은?
 

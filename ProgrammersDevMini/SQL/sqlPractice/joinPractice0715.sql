@@ -2,7 +2,7 @@ SHOW databases;
 
 CREATE TABLE vital(
 	userID int NOT NULL,
-    vitalID int,
+    vitalID int, 
     date timestamp NOT NULL,
     weight int NOT NULL,
     primary key(vitalID)

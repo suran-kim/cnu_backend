@@ -1,6 +1,6 @@
 SHOW databases;
 
-USE test;
+USE test; 
 
 DROP TABLE IF EXISTS test.suRan_name_gender; -- 만일 테이블이 이미 존재하면 삭제
 CREATE TABLE test.suRan_name_gender (

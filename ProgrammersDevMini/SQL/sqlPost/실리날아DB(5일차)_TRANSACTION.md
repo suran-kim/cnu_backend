@@ -11,8 +11,8 @@
   * [💿 TRUNCATE](#---truncate)
 - [5. 정리](#5---)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
+---
+<br/>
 
 # 1. 트랜잭션이란?
 

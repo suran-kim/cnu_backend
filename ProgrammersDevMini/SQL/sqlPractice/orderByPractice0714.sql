@@ -4,7 +4,7 @@ SHOW TABLES;
 
 SELECT * 
 FROM prod.session;
-
+ 
 SELECT *
 FROM session;
 

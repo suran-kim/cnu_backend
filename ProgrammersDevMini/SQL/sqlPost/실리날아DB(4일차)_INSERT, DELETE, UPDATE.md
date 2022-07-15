@@ -10,9 +10,9 @@
     + [👉 Safe update mode 와 PK](#---safe-update-mode---pk)
 - [4 UPDATE](#4-update)
 
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
-
+---
+<br/>
 
 # 1. 실습에 필요한 테이블 정의
 
