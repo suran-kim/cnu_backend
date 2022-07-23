@@ -10,5 +10,5 @@
 ## Spring
 
 ## TIL
-- 20220723_TIL 
-- 20220722_TIL
+- [20220723_TIL](https://github.com/suran-kim/cnu_backend_TIL/blob/main/Study/TIL/20220722_TIL.md) 
+- [20220722_TIL](https://github.com/suran-kim/cnu_backend_TIL/blob/main/Study/TIL/20220723_TIL.md)
