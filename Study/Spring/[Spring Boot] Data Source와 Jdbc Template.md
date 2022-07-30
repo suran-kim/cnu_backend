@@ -1,3 +1,6 @@
+>_본 포스팅은 프로그래머스 미니 데브 코스를 공부하며 
+학습을 기록하기 위한 목적으로 작성된 글입니다._
+
 
 # JDBC
 
@@ -9,7 +12,9 @@
 커넥션을 관리하는 주체
 _(JDBC에서는 드라이버 매니저 외에 DataSource를 이용해서 커넥션을 연결 가능)_
 
-### DataBase Connection Pool (DBCP)
+<br/><br/>
+
+### 🍃 DataBase Connection Pool (DBCP)
 
 - DataBase Connection Pool(DBCP)
 매번 커넥션을 생성 -> close하면 많은 자원이 소모된다.
@@ -27,17 +32,23 @@ _(JDBC에서는 드라이버 매니저 외에 DataSource를 이용해서 커넥�
 
 pom.xml에 `spring-boot-starter-jdbc` 의존성을 추가하면 **HikariCP**를 포함한 많은 라이브러리들이 추가된다.
 
+<br/>
+
 #### Simple Driver DataSource
 
 - 매번 커넥션을 data manager를 통해 가져온다.
 - 테스트용.
+
+<br/>
 
 #### HikariCP
 - 톰캣 2.0부터 HikariCP를 사용.
 - 2012년도 경에 개발된 매우 가볍고 빠른 JDBC 커넥션 풀
 
 
-#### DataSource를 이용한 CRUD
+<br/>
+
+### 🍃 DataSource를 이용한 CRUD
 
 
 
@@ -226,14 +237,25 @@ public class CustomerJDBCRepository implements CusotomerRepository {
 
 ```
 
+<br/><br/>
+
+---
+
 ## Jdbc Template
 - DataSource 사용 시 **connection 생성**과 **예외처리 부분**이 반복된다.
   스프링에서는 이렇게 반복되는 코드와 변경되는 부분을 Jdbc Template을 이용하여 제거할 수 있다.
 
 - template callback 패턴을 이용한다.
 
-- dataSource 필요
+- **dataSource** 필요
 
+
+<br/>
+
+### 🍃 Jdbc Template를 이용한 CRUD
+
+
+<br/>
 
 ```java
 import javax.sql.DataSource;
@@ -369,10 +391,11 @@ public class CustomerJDBCRepository implements CusotomerRepository {
 }
 ```
 
+<br/><br/>
 
 ## Test Code
 
-### Datasource 사용
+### 🍃 Datasource 사용
 
 ```java
 import com.zaxxer.hikari.HikariDataSource;
@@ -491,17 +514,37 @@ class CustomerJDBCRepositoryTest {
 
 ```
 
+<br/><br/>
 
-
-### Templeate 사용
+### 🍃 Templeate 사용
 
 
 ```java
+    static class Config {
+        @Bean
+        public DataSource dataSource() {
+            var dataSource = DataSourceBuilder.create()
+                    .url("jdbc:mysql://localhost/order_mgmt")
+                    .username("root")
+                    .password("root1234!")
+                    .type(HikariDataSource.class) // (기본) HikariDataSource가 pool에 10개의 connection을 채워넣는다.
+                    .build();
+            dataSource.setMaximumPoolSize(1000); // connection 사이즈를 1000으로 설정
+            dataSource.setMinimumIdle(100); // 기본 connection을 100개로 설정
+            return dataSource;
+        }
 
+        // JdbcTemplate 사용을 위한 Bean 설정
+        @Bean
+        public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+            return new JdbcTemplate(dataSource);
+        }
+    }
 ```
 
+<br/><br/>
 
-### 테스트의 순서 설정
+### 🍃 테스트의 순서 설정
 
  테스트 코드는 테스트 코드에 나열한 순서대로 실행되지 않는다.
  
@@ -512,6 +555,9 @@ class CustomerJDBCRepositoryTest {
   
       - 숫자로 테스트 코드의 실행 순서 표기
     
+ 
+<br/>
+
  
  
 ```java
@@ -534,6 +580,24 @@ class CustomerJDBCRepositoryTest {
     
 ```
 
+<br/>
+
+ ### 🍃 @TestInstance
+ 
+- 테스트 인스턴스의 **생성 단위**를 변경하기 위해 사용하는 어노테이션
+- JUnit은 설정된 테스트 단위로 테스트 객체(테스트 인스턴스)를 만든다.
+- 테스트 인스턴스는 기본적으로 **메소드 단위 생명주기**이다. 
+- @TestIntance는 **메소드끼리 영향을** 주는 테스트 케이스를 테스트할 때 사용한다.
+- `@TestInstance(Lifecycle.PER_CLASS)` 를 선언한 클래스는 클래스 단위 생명주기를 가진다.
+
+
+- _클래스 단위 인스턴스 장점_
+   - `@BeforeAll` 이나 `@AfterAll` 메서드가 정적 메서드가 아니어도 된다.
+   - `@Nested` 클래스에서 `@BeforeAll` 이나 `@AfterAll` 메서드를 사용할 수 있다.
+
+
+
+<br/><br/>
 
 > _**새로 알게 된 용어**_
 - _callback 함수_
@@ -553,6 +617,11 @@ _(setter 역할의 메소드를 따로 정의)_
 - domain클래스 생성 시 정의된 비즈니스룰을 잘 작성하는 게 중요하다. 
 - 항상 Optional 사용을 고려하라. 
 
+  
 
-> [더 공부해보면 좋을 자료 (@TestMethodOrder)]
+> _**rf**_
+[더 공부해보면 좋을 자료 (@TestMethodOrder)]
 (https://effortguy.tistory.com/120)
+[참고한 블로그: yshjft님의 벨로그](https://velog.io/@yshjft/2022%EB%85%84-4%EC%9B%94-13%EC%9D%BC-TIL#testinstance)
+[[Spring Boot] JUnit 5 (5) - 테스트 인스턴스 (@TestInstance)](https://awayday.github.io/2017-11-12/junit5-05/)
+[JUnit 5 (5)](https://awayday.github.io/2017-11-12/junit5-05/)
