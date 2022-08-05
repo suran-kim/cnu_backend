@@ -237,16 +237,10 @@ _  (시스템에 대한 논리적 이해를 돕는 다이어그램)_
   
   - _**클라우드 스토리지**_
     - 데이터를 웹 서버의 파일 스토리지가 아닌 클라우드 스토리지에 저장한다. 
-    👉 인터넷을 통해 데이터를 저장, 접근, 공유할 수 있는 단순하고 확장성 있는 방법(출처 : AWS)
-    👉 로컬 파일 시스템에 저장할 수 있는 거의 모든 것(비디오, 사진, 오디오 데이터, CSS, 자바스크립트, 사용자 데이터 등)을 **RESTful API**를 사용하고 **HTTP**를 통해 클라우드에 저장하고 접근할 수 있다.
-    👉 사용되는 기술 : AWS의 S3<br/><br/>
+    👉 인터넷을 통해 데이터를 저장, 접근, 공유할 수 있는 단순하고 확장성 있는 방법(출처 : AWS)<br/>👉 로컬 파일 시스템에 저장할 수 있는 거의 모든 것(비디오, 사진, 오디오 데이터, CSS, 자바스크립트, 사용자 데이터 등)을 **RESTful API**를 사용하고 **HTTP**를 통해 클라우드에 저장하고 접근할 수 있다.<br/>👉 사용되는 기술 : AWS의 S3<br/><br/>
   - _**CDN**_
     - Content Delivery Network
-    - 웹을 이용해서 HTML, CSS, 자바스크립트, 이미지 같은 **정적인 데이터**를 1개의 원본(origin) 서버를 사용하는 것보다 더 빠르게 제공하기 위한 기술이다.
-    👉 콘텐츠를 전 세계의 많은 **엣지(edge) 서버**에 분산시키고 저장하는 방식으로 동작한다.
-    👉 사용자는 데이터를 원본 서버 대신 사용자와 가장 가까운 엣지 서버에서 다운로드한다.
-    👉 Ex ) 한국에 있는 사용자가 뉴욕에 있는 원본 서버의 웹페이지에 접근하면 정적인 데이터를 가져오기 위해 매우 느린 HTTP 요청을 하는 대신 일본에 있는 CDN 엣지 서버로부터 빠르게 다운로드 할 수 있음.
-    👉  일반적인 웹 어플리케이션은 CSS, 자바스크립트, 이미지, 비디오 및 다른 정적인 데이터를 제공하기 위해 항상 CDN을 사용해야 한다.
+    - 웹을 이용해서 HTML, CSS, 자바스크립트, 이미지 같은 **정적인 데이터**를 1개의 원본(origin) 서버를 사용하는 것보다 더 빠르게 제공하기 위한 기술이다.<br/>👉 콘텐츠를 전 세계의 많은 **엣지(edge) 서버**에 분산시키고 저장하는 방식으로 동작한다.<br/>👉 사용자는 데이터를 원본 서버 대신 사용자와 가장 가까운 엣지 서버에서 다운로드한다.<br/>👉 Ex ) 한국에 있는 사용자가 뉴욕에 있는 원본 서버의 웹페이지에 접근하면 정적인 데이터를 가져오기 위해 매우 느린 HTTP 요청을 하는 대신 일본에 있는 CDN 엣지 서버로부터 빠르게 다운로드 할 수 있음.<br/>👉  일반적인 웹 어플리케이션은 CSS, 자바스크립트, 이미지, 비디오 및 다른 정적인 데이터를 제공하기 위해 항상 CDN을 사용해야 한다.
 
 
 
@@ -320,30 +314,300 @@ _( JSP, servlet을 실행시킬 수 있는 소프트웨어 == **컨테이너** )
 
 # Servlet
 
+![](https://velog.velcdn.com/images/suran-kim/post/90e4d8d7-51b3-4c58-8440-b465decb341f/image.png)
+
+
  동적 웹 페이지(Dynamic Web Page)를 만들 때 사용되는 자바 기반의 웹 애플리케이션 프로그래밍 기술. 
 - 웹을 만들때는 다양한 요청(Request)과 응답(Response)이 존재하고 이런 요청과 응답에는 규칙이 존재한다.
 - **서블릿**은 이런 웹 요청과 응답의 흐름을 간단한 **메서드 호출**만으로 체계적으로 다룰 수 있게 해주는 기술이다.
+- **WAS 내부**에서 동작하고, WAS 내부에서 **클라이언트(브라우저)의 요청**을 받아 필요한 **Service 기능을 호출**해주는 **Component**가 바로 서블릿.
+<br/>
+
+_**서블릿 특징**_
+
+- 클라이언트의 요청(Request)에 대해 동적으로 작동하는 웹 애플리케이션 컴포넌트
+- HTML을 사용하여 응답(Response) 한다.
+- JAVA의 스레드를 이용하여 동작한다.
+- MVC 패턴에서의 컨트롤러로 이용된다.
+- HTTP 프로토콜 서비스를 지원하는 javax.servlet.http.HttpServlet 클래스를 상속받는다.
+- UDP보다 속도가 느리다.
+- 단점 - HTML 변경 시 Servlet을 재 컴파일해야 한다.
 
 
-- 서블릿은 **WAS 내부**에서 동작하고, WAS 내부에서 **클라이언트(브라우저)의 요청**을 받아 필요한 **Service 기능을 호출**해주는 **Component**이다.
-- 서버 역할을 하는 java 소프트웨어 Component
-_(Http 요청을 받아서 기능을 처리하고 HTML문서 생성 등의 응답 처리)_
-- 결과 : JSP 페이지
--  웹 브라우저에서 서버에 요청(Request)을 하면 Request(일반적으로 Http)에 맞는 동작을 수행하고 웹 브라우저에 **HTTP형식**으로 응답(Response)한다.
 
 
 
 
-- 과거의 이름 : Java Servlet
-- 현재의 이름 : Jakarta Servlet
 
-
-- 자바의 서블릿은 인터페이스이다.
-- Servlet 인터페이스의 구현체 : Http Servlet
-- Http Servlet을 확장해서 로직 작성하게 된다.
-- 서블릿을 상속 받아서 메소드를 구현하면 WAS가 해당 메소드를 호출한다. 
+_**서블릿 사용 흐름**_
+- 자바의 Servlet은 인터페이스이다. (Servlet의 구현체 : Http Servlet)
+- 실제 개발 시 **Http Servlet**을 확장해서 로직을 작성하게 된다.
+- Http Servlet를 상속 받아서 메소드를 구현하면 WAS가 해당 메소드를 호출할 수 있다. 
 - 클라이언트에서 요청 -> WAS가 메소드 호출 -> 서블릿을 상속받아 구현한 메소드가 실행 
-- 즉, 서블릿은 웹 상의 요청과 응답에 대한 일종의 프레임워크, WAS 개발과 Web 개발의 충돌 방지 (?)
+- 즉, 서블릿은 웹 상의 **요청과 응답**에 대한 일종의 **프레임워크**
+, WAS 개발과 Web 개발의 충돌 방지 (?)
+WAS의 비즈니스 로직과 요청, 응답 처리 작업을 분리
+ 
+
+
+_**서블릿 사용법**_
+_**1. Container에 서블릿 등록**_
+- Http Servlet을 상속받아서 구현한 서블릿 인스턴스를 new 로 생성하지 않고 **Container**에 등록한다.
+- web.xml에 로직을 구현한 서블릿이 등록된다. (등록되는 거 내가 직접 하는 거? -> yes)
+- WAS에 url-pattern과 맞는 요청(request)가 오면 서블릿의 메소드 호출
+
+_**2. JSP 호출 **_
+- `RequestDispatcher` 인스턴스를 이용해서 **동적인 JSP 페이지**를 제공할 수 있다.
+- 서블릿이 JSP를 만들면 **WAS가 JSP를 읽어서 컴파일** 후 랜더링으로 만든 **HTML 페이지**를 응답으로 보내게 된다.
+
+
+
+## MVC Pattern in Servlet
+
+MVC 패턴이란?
+- Model, View, Controller
+- 각각의 컴포넌트들이 해야하는 관심사를 분리하는 것이다.
+- 웹 어플리케이션을 만들 때 기능을 **화면, 로직, 데이터 저장**으로 분리
+
+
+서블릿에서의 MVC 패턴이란? 
+- _**Model** - 자바 객체 또는 Pojo로 데이터를 담고있다_
+- _**View** - 모델이 담고 있는 데이터를 시각적으로 보여주는 역할_
+- _**Controller** - 모델과 뷰를 연결하기 위한 **매개체**. 사용자의 입력/요청을 받아 모델의 상태를 변경해주고 그에 따른 뷰를 업데이트 해준다._
+![](https://velog.velcdn.com/images/suran-kim/post/2da2d234-3163-4eb7-ac95-ed53388c52bf/image.png)
+이미지 출처 : https://www.javatpoint.com/MVC-in-jsp
+
+_(Spring에서만 MVC 패턴을 지원하는 게 아니다~)_
+
+
+
+
+## Servlet의 Life Cycle
+![](https://velog.velcdn.com/images/suran-kim/post/dddaa06e-8227-4b42-9b0b-cdf588a6f60e/image.png)
+이미지 출처 : https://gmlwjd9405.github.io/2018/10/27/webserver-vs-was.html
+
+_Servlet의 Life Cycle 핵심_
+
+1. **init()**
+2. **service()**
+3. **doGet()** 혹은 **doPost()**
+
+<br/>
+
+_Web Service Architecture_
+- Web Server는 웹 브라우저 클라이언트로부터 HTTP 요청을 받는다.
+- Web Server(Proxy)는 클라이언트의 요청(Request)를 WAS에 보낸다.
+- WAS(컨테이너)는 관련된 Servlet을 메모리에 올린다.
+- WAS는 web.xml을 참조하여 해당 Servlet에 대한 Thread를 생성한다. (Thread Pool 이용)
+- HttpServletRequest와 HttpServletResponse 객체를 생성하여 Servlet에 전달한다.
+  _(주의! Thread가 매번 Servlet 인스턴스를 만드는 게 아니다!)_
+  _(Servlet 인스턴스는 단 한 번 init() 되고 서버가 닫힐 때 제거된다.)_
+  - Servlet의 **init()**이 실행된다.
+  - Thread는 Servlet의 **service()** 메소드를 호출한다.
+  - service() 메서드는 요청에 맞게 **doGet()** 또는 **doPost()** 메서드를 호출한다.
+  _(매 요청마다 doGet() 또는 doPost() 호출)_
+  - protected doGet(HttpServletRequest request, HttpServletResponse response)
+- doGet() 또는 doPost() 메서드는 인자에 맞게 생성된 적절한 동적 페이지를 Response 객체에 담아 WAS에 전달한다.
+- WAS는 Response 객체를 HttpResponse 형태로 바꾸어 Web Server에 전달한다.
+- 생성된 Thread를 종료하고, HttpServletRequest와 HttpServletResponse 객체를 제거한다.
+
+
+
+**_알아두자!_**
+- 매 요청마다 **Thread**가 만들어져서 호출되는 것이다.
+  - 매 요청마다 Servlet 객체(인스턴스)가 만들어지는 게 아니다!!
+- 멀티 스레드 환경이기 때문에 필드 단위 접근 주의!
+  - 여러 클라이언트가 필드 값에 대한 요청을 한다면 기존 요청과 새로운 요청들이 뒤섞일 수 있다.
+  - 서블릿에서는 무조건 메소드 안에서 변수를 만들고 접근하도록 하자.  
+
+
+## Servlet 코드
+
+
+- `spring-boot-starter-web` 의존성 필요
+
+
+### web.xml으로 서버를 등록하는 방법
+💡 _요청하는 순간 init 호출_
+
+
+1. web.xml 생성
+- [src] - [main] - [webapp 패키지 생성] - [WEB-INF 패키지 생성] - [**web.xml** 생성]
+
+
+```xml
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <servlet>
+        <servlet-name>test</servlet-name>  <!-- 서블릿 이름 -->
+        <servlet-class>org.prgrms.kdt.servlet.TestServlet</servlet-class> <!-- 서블릿 클래스 -->
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>test</servlet-name>
+        <url-pattern>/*</url-pattern> <!-- 매핑될 URL : 하위의 모든 경로을 서블릿에 매핑시킨다. -->
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>order</servlet-name>  <!-- 여러 개의 서블릿을 매핑 가능 -->
+        <servlet-class>org.prgrms.kdt.servlet.OrderServlet</servlet-class> <!-- 서블릿 클래스 -->
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>order</servlet-name>
+        <url-pattern>/orders/*</url-pattern> <!-- 매핑될 URL : orders URL 패턴 하위의 모든 경로을 서블릿에 매핑시킨다. -->
+    </servlet-mapping>
+</web-app>
+```
+
+
+2. 서버 배포 (WAS에 deploy)
+- intellij의 [edit Configuration] - [Add new Configuration] - [Tomcat Server] - [local]
+- 톰캣 파일 압축 풀고 Configuration에 경로 설정해주기
+- Deployment에 프로젝트 넣어주기
+  - [Fix] 
+  - [Project Setting - Artifacts] - [add] - [Web Application : Exploded] - [From Module]
+- Facet 세팅
+  - [Project Setting - Facet] - [Web] - [add] - [web.xml 추가]  
+- out 폴더 생성
+  - 실행하는 순간 build된 파일이 옮겨지고 deploy되는 구조. (자바 파일이? out이?)
+  ![web.xml경로](https://velog.velcdn.com/images/suran-kim/post/cd87fbda-66fb-4b5c-ac0e-87863554cab2/image.png)
+
+
+
+```java
+// 서블릿 
+
+public class TestServlet extends HttpServlet {
+    private static final Logger logger = LoggerFactory.getLogger(TestServlet.class);
+
+    @Override
+    public void init() throws ServletException {
+        super.init();  // 서버 구동 확인 : init() 이 잘 호출되는지?
+        logger.info("Init Servlet");
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { // 요청, 응답에 대한 파라미터 전달
+        var requestURI = req.getRequestURI();
+        logger.info("Got Request from {}", requestURI); // 요청이 올 때마다 로그 출력
+
+        var writer = resp.getWriter();
+        writer.println("Hello Servlet!");
+    }
+
+}
+
+
+// 로그 
+
+// 2022-08-05 20:40:20.105  INFO   --- [nio-8080-exec-1] org.prgrms.kdt.servlet.TestServlet       : Init Servlet
+// 2022-08-05 20:40:20.121  INFO   --- [nio-8080-exec-1] org.prgrms.kdt.servlet.TestServlet       : Got Request from /kd_spring_order_war_exploded/
+// 2022-08-05 20:40:20.240  INFO   --- [nio-8080-exec-4] org.prgrms.kdt.servlet.TestServlet       : Got Request from /kd_spring_order_war_exploded/
+
+// 웹 페이지 URL에 입력하고 enter를 치면 HTTP GET 요청이 발생한다.
+
+```
+  
+  
+
+
+
+### 어노테이션을 이용하는 방법
+💡 _요청을 받기 전에 미리 init _
+  - @WebServlet (value = "`패스(경로)`", loadOnStartup = `1`)
+    - loadOnStartup = `-1` : 기본값. 요청을 받을 때 init
+    - loadOnStartup = `-1` : 요청을 받기 전에 init
+
+web.xml이 없으면 tomcat을 구동시켜도
+WAS는 deploy가 없어도 모른다.?
+WAS에게 알려주기 위한 어노테이션
+
+```java
+// 서블릿
+
+@WebServlet(value = "/*", loadOnStartup = -1) 
+public class TestServlet extends HttpServlet {
+    private static final Logger logger = LoggerFactory.getLogger(TestServlet.class);
+
+    @Override
+    public void init() throws ServletException {
+        super.init();  // 서버 구동 확인 : init() 이 잘 호출되는지?
+        logger.info("Init Servlet");
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { // 요청, 응답에 대한 파라미터 전달
+        var requestURI = req.getRequestURI();
+        logger.info("Got Request from {}", requestURI); // 요청이 올 때마다 로그 출력
+
+        var writer = resp.getWriter();
+        writer.println("Hello Servlet!");
+    }
+
+}
+```
+
+### spring 제공 인터페이스 구현
+
+
+- 서블릿 3.0부터 지원
+- WAS가 클래스 패스에 있는 모든 클래스를 스캔
+  - WebApplicationInitializer (인터페이스)의 구현체가 있으면? -> 실행한다. 
+  - 구현체를 인스턴스화시키고 onStartup 메소드 호출 
+
+
+- web.xml은 선언적 접근
+- WAS에 서버가 올라가기 전 선행 / 후행 코드를 작성해야할 필요가 있을 때 사용할 수 있는 방법
+
+
+
+
+_**원리**_
+- WebApplicationInitializer는 스프링에서 제공
+- SpringServletContainerInitializer는 서블릿에서 제공
+  - ServletContainerInitializer를 상속받는다.
+  - WebApplicationInitializer를 찾는다.
+  - WebApplicationInitializer으로 onStartup 메소드를 호출한다.
+
+
+그래서 ServletContainerInitializer를 직접 구현해도 되지만
+WebApplicationInitializer을 구현해서 처리할 수도 있는 것이다.
+
+- 스프링 MVC 프로젝트에서는 대체로 WebApplicationInitializer을 구현한다.
+- 서블릿이 Initializer될 때 서블릿이 호출하는 클래스
+
+```java
+
+public class KdtWebApplicationInitializer implements WebApplicationInitializer {
+    private static final Logger logger = LoggerFactory.getLogger(KdtWebApplicationInitializer.class);
+    // servletContext가 생성된다. WAS가 접근 가능
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+        logger.info("Staring Server...");
+        var servletRegistration = servletContext.addServlet("test", new TestServlet());// 테스트 서블릿을 추가할 수 있다.
+        servletRegistration.addMapping("/*"); // 서블릿 매핑 시 넣었던 URL 패턴 입력
+        servletRegistration.setLoadOnStartup(1);
+    }
+}
+
+// 로그
+// 2022-08-05 21:16:20.953  INFO   --- [on(3)-127.0.0.1] o.p.k.s.KdtWebApplicationInitializer     : Staring Server...
+// 2022-08-05 21:16:20.994  INFO   --- [on(3)-127.0.0.1] org.prgrms.kdt.servlet.TestServlet       : Init Servlet
+// [2022-08-05 09:16:21,013] Artifact kd-spring-order:war exploded: Artifact is deployed successfully
+// [2022-08-05 09:16:21,013] Artifact kd-spring-order:war exploded: Deploy took 2,797 milliseconds
+// 2022-08-05 21:16:21.347  INFO   --- [nio-8080-exec-1] org.prgrms.kdt.servlet.TestServlet       : Got Request from /kd_spring_order_war_exploded/
+// 2022-08-05 21:16:21.478  INFO   --- [nio-8080-exec-4] org.prgrms.kdt.servlet.TestServlet       : Got Request from /kd_spring_order_war_exploded/
+```
+
+
+우리가 한 방식은 톰캣을 서버에 미리 설치해놓고 톰캣 구동 -> 톰캣에 war를 빌드하는 방식 
+remote면 war로 말아서 deploy
+앞으로는 embedded Tomcat을 쓸 것이다.
+legacy 어플리케이션에서는 WAS로 배포하기도 
+모던 아키텍쳐에서는 embedded Tomcat / embedded Survlet으로 말아서 jar로 배포하는 경우가 많다.
+
 
 
   <br/><br/><br/><br/><br/><br/><br/><br/>
@@ -355,19 +619,34 @@ _(Http 요청을 받아서 기능을 처리하고 HTML문서 생성 등의 응�
 - _**REST란? “Representational State Transfer” 의 약자**_ <br/> 자원을 이름(자원의 표현)으로 구분하여 해당 자원의 상태(정보)를 주고 받는 모든 것을 의미한다.<br/> 출처 : https://gmlwjd9405.github.io/2018/09/21/rest-and-restful.html
 - _**수직확장과 수평확장**_
 수평확장(Horizental Scaling), Scale Out - 장비를 추가해서 확장하는 방식 (서버 추가 ) <br/>수직확장(Vertical Scaling), Scale Up - 기존 하드웨어를 보다 높은 사양으로 업그레이드하는 것<br/>출처 : https://tech.gluesys.com/blog/2020/02/17/storage_3_intro.html
-- 
+- _**JSP (JavaServer Pages )**_
+Java 언어를 기반으로 하는 Server Side 스크립트 언어.
+HTML 코드에 JAVA 코드를 넣어 동적 웹페이지를 생성하는 웹 어플리케이션 도구.
+JSP를 통해 정적인 HTML과 동적으로 생성된 contents(HTTP 요청 파라미터)를 혼합하여 사용할 수 있다. 즉, 사용자가 입력한 contents에 맞게 동적인 웹 페이지를 생성한다
+https://gmlwjd9405.github.io/2018/11/03/jsp.html
+출처: https://javacpro.tistory.com/43, https://gmlwjd9405.github.io/2018/11/03/jsp.html
+- _**POJO**_
+ 본래 자바의 장점을 살리는 '오래된' 방식의 '순수한' 자바객체
+ 즉, 특정 '기술'에 종속되어 동작하는 것이 아닌 순수한 자바 객체를 의미한다.
+ 출처 : https://siyoon210.tistory.com/120
   
 > _**TIP**_
   - 기본은 80포트
   - TCP는 비동기형 프로토콜이다.
-  - 네트워크를 통해 특정 파일 전송
-  - 브라우저가 URI를 통해 특정 리소스에 접근하면 HTTP프로토콜을 타고 서버에 있는 하이퍼 텍스트 리소스를 브라우저가 받아와서 랜더링한다. 하이퍼 텍스트 리소스에 링크가 있다면 또 다른 HTTP 프로토콜을 타고 또 다른 서버에 있는 리소스를 …
+  - 브라우저가 URI를 통해 특정 리소스에 접근하면 HTTP프로토콜을 타고 서버에 있는 하이퍼 텍스트 리소스를 브라우저가 받아와서 랜더링한다. 하이퍼 텍스트 리소스에 링크가 있다면 또 다른 HTTP 프로토콜을 타고 또 다른 서버에 있는 리소스를 … 그런 흐름이다.
   - URL은 URI의 서브셋이지만 URI와 URL의 가장 큰 차이점은 다음과 같다. <br/> **URI**는 식별하고, **URL**은 위치를 가리킨다.<br/>출처 : https://www.charlezz.com/?p=44767
+  - Java Servlet은 현재 Jakarta Servlet이라는 이름으로 불린다.
+  - 서블릿의 동작 - 웹 브라우저에서 서버에 요청(Request)을 하면 Request(일반적으로 Http)에 맞는 동작을 수행하고 웹 브라우저에 **HTTP형식**으로 응답(Response)한다. 결과 : JSP 페이지. <br/>JDBC에서 underline 작업에 대해서 몰라도 connection을 통해 DB를 조작할 수 있었던 것처럼<br/>서블릿을 이용하면 WAS에서 실제 호출되는 과정을 몰라도 웹 브라우저의 요청과 응답에 대한 조작이 가능해진다.<br/>
+  - 하나의 요청은 하나의 스레드 안에서 돌게 된다.
+  
+
   
 > _**더 공부하면 좋을 포스팅**_
 -   [Mdn 문서 - HTTP 개요](https://developer.mozilla.org/ko/docs/Web/HTTP/Overview)
 -  [LITSLINK - 웹 어플리케이션 아키텍쳐](https://litslink.com/blog/web-application-architecture)
 - [HeeJeong Kwon 님의 [Web] Web Server와 WAS의 차이와 웹 서비스 구조](https://gmlwjd9405.github.io/2018/10/27/webserver-vs-was.html)
+- [HeeJeong Kwon 님의 [Web] JSP란 (Java Server Pages)](https://gmlwjd9405.github.io/2018/11/03/jsp.html)
+- [siyoon210 님의 POJO - (Plain Old Java Object)란 뭘까?](https://siyoon210.tistory.com/120)
   
 >_**Rf**_
 - [shaking 님의 절대경로와 상대경로](https://88240.tistory.com/122)
@@ -376,6 +655,7 @@ _(Http 요청을 받아서 기능을 처리하고 HTML문서 생성 등의 응�
 - [[번역] 웹 아키텍쳐 입문](https://blog.rhostem.com/posts/2018-07-22-web-architecture-101)
 - [김백개발자 님의 WAS, Tomcat 그리고 Jetty](https://baek-kim-dev.site/119)
 - [코딩 팩토리 님의 [Web] 서블릿(Servlet)이란 무엇인가? 서블릿 총정리](https://coding-factory.tistory.com/742)
+-  [HeeJeong Kwon 님의 [Web] Web Server와 WAS의 차이와 웹 서비스 구조](https://gmlwjd9405.github.io/2018/10/27/webserver-vs-was.html)
   
   
   
