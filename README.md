@@ -11,6 +11,7 @@
  
 ## TIL
 - [20220823_TIL](https://github.com/suran-kim/cnu_backend_TIL/blob/main/Study/TIL/20220823_TIL.md)
+- [20220822_TIL](https://github.com/suran-kim/cnu_backend_TIL/blob/main/Study/TIL/20220822_TIL.md)
 - [20220821_TIL](https://github.com/suran-kim/cnu_backend_TIL/blob/main/Study/TIL/20220821_TIL.md)
 - [20220819_TIL](https://github.com/suran-kim/cnu_backend_TIL/blob/main/Study/TIL/20220819_TIL.md)
 - [20220818_TIL](https://github.com/suran-kim/cnu_backend_TIL/blob/main/Study/TIL/20220818_TIL.md)
