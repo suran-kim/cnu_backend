@@ -11,7 +11,7 @@ CORS 에러를 해결해보자
 # SPA 
 SPA는 단일 페이지 웹 어플리케이션
 
-![](https://velog.velcdn.com/images/suran-kim/post/35091759-3e43-4169-9037-3e9dad3fc7f7/image.png)(이미지 출처 : [0307kwon 님의 웹은 어떻게 동작할까? - 1. 사용자가 웹페이지를 보기까지](https://velog.io/@0307kwon/%EC%9B%B9%EC%9D%80-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%8F%99%EC%9E%91%ED%95%A0%EA%B9%8C-1.-%EC%82%AC%EC%9A%A9%EC%9E%90%EA%B0%80-%EC%9B%B9%ED%8E%98%EC%9D%B4%EC%A7%80%EB%A5%BC-%EB%B3%B4%EA%B8%B0%EA%B9%8C%EC%A7%80#-%EB%82%B4%EA%B0%80-%EC%98%A4%ED%95%B4%ED%95%98%EA%B3%A0-%EC%9E%88%EB%8D%98-%EB%B6%80%EB%B6%84) 게시글의 도표와 동일하게 제작한 자료 입니다.)
+
 ![](https://velog.velcdn.com/images/suran-kim/post/fb068100-e157-43d9-855d-dff169eae683/image.png) 
 ![](https://velog.velcdn.com/images/suran-kim/post/0d7f1008-f6cb-4b2f-9638-113a8dcbf30f/image.png)[이미지 출처](https://poiemaweb.com/js-spa)
 
@@ -180,25 +180,94 @@ proxy가 응답을 전달해준다.(?)
 ## CORS와 SOP
 
 하나의 웹 애플리케이션은 하나의 호스트에서만 데이터를 가져오지 않는다. 웹이 복잡해지고 다양한 리소스가 필요해지면서 웹 애플리케이션 또한 다양한 호스트에 접근할 필요가 생겼다. 이에 따라 보안성이 중요해지고, 사용자를 악의적인 공격에서 보호하기 위해 브라우저는 **동일한 출처**에서만 리소스를 활용할 수 있도록 허용하는 **SOP(Same-Origin Policy)** 정책을 만들었다.
+
 그러나 앞서 말했듯 다양한 리소스에 접근할 필요성이 생김에 따라, 동일 출처가 아닌 리소스에 접근하는 것을 허용하는 것이 **CORS(Cross Origin Resource Sharing)**정책이다. CORS는 **http 헤더**를 이용해 다른 출처의 리소스에 접근할 수 있도록 해주는 메커니즘을 의미한다.
 
 
 SOP 정책
  - 웹 애플리케이션은 동일 출처의 리소스만 접근 가능.
+
  
 CORS 정책
-  - http 헤더를 통해 다른 출처의 리소스에 접근할 수 있도록 해주는 메커니즘.
+  - **http 헤더**를 통해 다른 출처의 리소스에 접근할 수 있도록 해주는 메커니즘.
  
  
 ## _**origin (출처) **_
  ![](https://velog.velcdn.com/images/suran-kim/post/bc663635-21c4-4c61-97ec-a1b0cd69edbd/image.png)
  이미지 출처 : https://evan-moon.github.io/2020/05/21/about-cors/
  
+ - 출처가 같다 : `프로토콜` + `호스트` + `포트넘버` 가 같다.
+ 
+서버의 위치를 의미하는 https://google.com과 같은 URL들은 여러 개의 구성 요소로 이루어져있다. 이때 출처(origin)은 `Protocol`과 `Host`, 그리고 `포트번호`(:80, :443)를 모두 합친 것을 의미한다.  각 웹에서 사용하는 HTTP, HTTPS 프로토콜의 기본 포트 번호가 정해져 있기 때문에 origin 내의 `포트번호`는 생략이 가능하다.
+
+예를 들어 
+http://store.company.com/dir/page.html 페이지의 스크립트가 아래와 같은 페이지에서  리소스 접근시 결과는 다음과 같다.
+
+![](https://velog.velcdn.com/images/suran-kim/post/2de3ca88-7a3b-4028-96aa-ef9b8abd0571/image.png)이미지 및 예시 출처 : https://velog.io/@sangmin7648/SOP-CORS%EB%9E%80
+
+이처럼 호스트가 다르면 CORS가 발생한다.
+
+
+## CORS 동작 방식
 
 
 
 
+예비요청(preflight)이 있느냐 없느냐에 따라 flow가 다름
+예비요청을 보낼 때 : **단순 요청**이 아닐 때
 
+ 
+ 
+### with preflight (예비요청 O)
+
+
+
+- 예비요청(preflight)
+    - 요청 : HTTP메소드 OPTIONS에 Origin을 실어 보낸다. (origin은 URL에서의 host가 됨)
+    - 응답 : Access-Controll-Allow-Origin이라는 헤더에 **허용되는 출처**가 응답
+
+
+- 본요청
+  - 응답된 허용된 출처와 동일한 경우 main request 진행
+
+![](https://velog.velcdn.com/images/suran-kim/post/9175f02a-9dce-4fe1-8529-132f40b2ee68/image.png)출처 : https://velog.io/@sangmin7648/SOP-CORS%EB%9E%80
+
+### without preflight (예비요청 X)
+
+- 단순 요청 (simple requests)
+ - ![](https://velog.velcdn.com/images/suran-kim/post/c57bb3f8-5958-444c-86bb-b9f85572cd76/image.png)출처 : https://developer.mozilla.org/ko/docs/Web/HTTP/CORS <br/><br/>
+ - 유저 에이전트 : 브라우저
+ - 프론트엔드, 자바스크립트에서 수동으로 설정할 수 있는 헤더의 예시(content-type헤더의 허용값 유의)
+ - 예를 들어, application JSON이라고 요청을 하면 단순 요청이 아니게 된다(?)
+
+주의사항!
+서버에서 Access-Contrl-Allow-Origin을 주지 않으면 브라우저에서 fail이 뜬다.
+
+
+## CORS 설정
+
+CORS를 서버에서 서포트하는 것은 쉽다? 스프링 MVC 에서 구성할 때 CORS를 글로벌하게 셋업하는 방법도 있고, Control단위로도 쉽게 설정할 수 있다.
+addCorsMappings을 사용해서 
+
+
+```java
+// 서버 단에서 설정가능
+@Override
+public void addCorsMappings(CorsRegistry registry) {
+    registry.addMapping("/api/**")
+            .allowedMethods("GET", "POST")
+            .allowedOrigins("*");
+}
+```
+```java
+// 컨트롤러에서 설정 가능 (어노테이션 사용)
+@Controller
+@CrossOrigin(origins = "*")
+public class CustomerController { ... }
+```
+
+
+<br/><br/>
 
 > _**오류해결**_
 - intelliJ 터미널에서 yarn이 실행되지 않는 문제
@@ -225,12 +294,16 @@ JSON은 name-value 형태. → **name**(무조건 Sring)-**value**(기본자료�
 JSON 파싱은 이 **JSON형태**의 문자열을 **이해할 수 있는 자료형**(EX: JavaScript 값이나 객체)으로 뽑아내는 것. [참고자료](https://zeddios.tistory.com/90) 
 - _**NPM, yarn**_
 JavaScript의 빌드 툴
-- ajax
+- _**ajax**_
 
 
   
 > _**TIP**_
-  
+- JACKSON을 사용하려면 디폴트 생성자가 꼭 필요하다.
+- 도메인을 막 건들면 안 된다. 도메인의 룰을 유지해야한다. <br/> <br/>
+- 
+- ![](https://velog.velcdn.com/images/suran-kim/post/35091759-3e43-4169-9037-3e9dad3fc7f7/image.png)(이미지 출처 : [0307kwon 님의 웹은 어떻게 동작할까? - 1. 사용자가 웹페이지를 보기까지](https://velog.io/@0307kwon/%EC%9B%B9%EC%9D%80-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%8F%99%EC%9E%91%ED%95%A0%EA%B9%8C-1.-%EC%82%AC%EC%9A%A9%EC%9E%90%EA%B0%80-%EC%9B%B9%ED%8E%98%EC%9D%B4%EC%A7%80%EB%A5%BC-%EB%B3%B4%EA%B8%B0%EA%B9%8C%EC%A7%80#-%EB%82%B4%EA%B0%80-%EC%98%A4%ED%95%B4%ED%95%98%EA%B3%A0-%EC%9E%88%EB%8D%98-%EB%B6%80%EB%B6%84) 게시글의 도표와 동일하게 제작한 자료 입니다.)
+
 > _**더 공부하고 싶은 것**_
   - 프로그래시브 웹앱 (PWA)
   - [CORS는 왜 이렇게 우리를 힘들게 하는걸까?](https://evan-moon.github.io/2020/05/21/about-cors/)
@@ -241,3 +314,4 @@ JavaScript의 빌드 툴
 -  [참고자료1](https://yamoo9.github.io/react-master/lecture/rr-spa.html#spa-%E1%84%85%E1%85%A1%E1%86%AB)
 - [poiemaweb : Single Page Application & Routing](https://poiemaweb.com/js-spa)
 - [sangmin7648님의 SOP, CORS란❓](https://velog.io/@sangmin7648/SOP-CORS%EB%9E%80)
+- [yshjft님의 2022년 4월 21일 TIL](https://velog.io/@yshjft/2022%EB%85%84-4%EC%9B%94-21%EC%9D%BC-TIL)
