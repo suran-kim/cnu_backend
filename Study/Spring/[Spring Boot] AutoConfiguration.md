@@ -64,7 +64,7 @@ Was 셋업, dependency 추가, JDBC 템플릿 Bean, 웹 MVC, 리소스 리졸버
 ```
 
 <br/>  
-  
+     
 - `application.yml`에서 **임베디드 서블릿** 관련 설정을 할 수 있다.  
   - servletContext name  지정 가능
   - 포트넘버 지정 가능
