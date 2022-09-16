@@ -10,6 +10,7 @@
 ## Spring
  
 ## TIL
+- [20220916_TIL](https://github.com/suran-kim/cnu_backend_TIL/blob/main/Study/TIL/20220916_TIL.md)
 - [20220915_TIL](https://github.com/suran-kim/cnu_backend_TIL/blob/main/Study/TIL/20220915_TIL.md)
 - [20220914_TIL](https://github.com/suran-kim/cnu_backend_TIL/blob/main/Study/TIL/20220914_TIL.md)
 - [20220913_TIL](https://github.com/suran-kim/cnu_backend_TIL/blob/main/Study/TIL/20220913_TIL.md)
